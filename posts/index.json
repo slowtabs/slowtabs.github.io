@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "zero-dependency-ssg",
+    "title": "How I built a zero-dependency static site generator in a weekend",
+    "date": "2025-01-12",
+    "tags": ["tutorial", "tooling"],
+    "excerpt": "Sometimes the best way to understand a tool is to build it yourself. I spent a weekend writing a minimal SSG — no frameworks, no build chains — and learned more about templating than two years of using existing tools.",
+    "featured": true
+  },
+  {
+    "slug": "type-safe-api-clients",
+    "title": "Type-safe API clients without code generation",
+    "date": "2025-02-08",
+    "tags": ["tutorial", "typescript"],
+    "excerpt": "Using TypeScript's type system to infer request and response shapes directly from a schema object, no codegen step needed.",
+    "featured": false
+  },
+  {
+    "slug": "rewriting-cli-in-go",
+    "title": "Rewriting our CLI tool in Go: what changed, what didn't",
+    "date": "2025-01-27",
+    "tags": ["writeup", "go"],
+    "excerpt": "A six-month retrospective on migrating a Node.js dev tool to Go. Startup time, binary distribution, and the things we didn't anticipate.",
+    "featured": false
+  },
+  {
+    "slug": "typescript-satisfies",
+    "title": "TIL: TypeScript's satisfies operator and when to use it",
+    "date": "2025-01-03",
+    "tags": ["til", "typescript"],
+    "excerpt": "A small but genuinely useful addition in TS 4.9 that lets you validate a value against a type without widening it.",
+    "featured": false
+  },
+  {
+    "slug": "writing-publicly",
+    "title": "Six months of writing publicly: what I learned",
+    "date": "2024-12-18",
+    "tags": ["writeup"],
+    "excerpt": "An honest look at what's surprised me about maintaining a technical blog — the feedback loops, the drafts that never shipped, and the ones that did.",
+    "featured": false
+  },
+  {
+    "slug": "graceful-shutdown-go",
+    "title": "Graceful shutdown patterns in Go HTTP servers",
+    "date": "2024-11-29",
+    "tags": ["tutorial", "go"],
+    "excerpt": "How to handle SIGINT and SIGTERM properly so in-flight requests finish before your process exits.",
+    "featured": false
+  }
+]

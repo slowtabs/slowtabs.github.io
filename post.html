@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading… — bytelog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap"
+        rel="stylesheet">
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css"
+        id="hljs-light">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css"
+        id="hljs-dark" disabled>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f8f6f1;
+            --surface: #ffffff;
+            --surface2: #f2efe8;
+            --border: #e5e0d5;
+            --text: #2a2620;
+            --muted: #8c8070;
+            --accent: #b06a3a;
+            --accent-light: #f0e6da;
+            --tag-bg: #ede9e0;
+            --tag-text: #6b5b47;
+            --code-bg: #f5f2eb;
+            --font-serif: 'Lora', Georgia, serif;
+            --font-sans: 'DM Sans', sans-serif;
+            --font-mono: 'DM Mono', monospace;
+        }
+
+        [data-theme="dark"] {
+            --bg: #1a1a1e;
+            --surface: #242428;
+            --surface2: #2a2a2f;
+            --border: #3a3a40;
+            --text: #e4e0d8;
+            --muted: #908878;
+            --accent: #d4915a;
+            --accent-light: #3a2e22;
+            --tag-bg: #2e2a24;
+            --tag-text: #b8a88e;
+            --code-bg: #2a2a2f;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.7;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(248, 246, 241, 0.88);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(26, 26, 30, 0.88);
+        }
+
+        .nav-logo {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            color: var(--accent);
+            font-weight: 400;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo span {
+            color: var(--muted);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* ── THEME TOGGLE ── */
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--muted);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .theme-toggle .sun {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .moon {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .sun {
+            display: block;
+        }
+
+        /* ── WRAPPER ── */
+        .wrapper {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ── BACK LINK ── */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            margin: 2rem 0 0;
+            padding: 0.5rem 0;
+            transition: color 0.2s, gap 0.2s;
+            font-family: var(--font-mono);
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+            gap: 0.6rem;
+        }
+
+        .back-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* ── POST HEADER ── */
+        .post-header {
+            padding: 2.5rem 0 2rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+        }
+
+        .post-header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+            font-weight: 500;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .post-date {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2em 0.65em;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            border-radius: 3px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .tag.accent {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        /* ── ARTICLE CONTENT (HackMD-style) ── */
+        .article-content {
+            padding-bottom: 4rem;
+            animation: fadeUp 0.4s ease both;
+        }
+
+        .article-content h1 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 2.5rem 0 1rem;
+            color: var(--text);
+            letter-spacing: -0.01em;
+        }
+
+        .article-content h2 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.35;
+            margin: 2.5rem 0 0.75rem;
+            color: var(--text);
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .article-content h3 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.4;
+            margin: 2rem 0 0.6rem;
+            color: var(--text);
+        }
+
+        .article-content h4 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 1.5rem 0 0.5rem;
+            color: var(--text);
+        }
+
+        .article-content p {
+            margin: 0 0 1.25rem;
+            line-height: 1.85;
+            color: var(--text);
+        }
+
+        .article-content a {
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: opacity 0.2s;
+        }
+
+        .article-content a:hover {
+            opacity: 0.75;
+        }
+
+        .article-content strong {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .article-content em {
+            font-style: italic;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 0 0 1.25rem;
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.4rem;
+            line-height: 1.75;
+        }
+
+        .article-content li::marker {
+            color: var(--muted);
+        }
+
+        .article-content blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 0.5rem 1.25rem;
+            margin: 1.5rem 0;
+            background: var(--surface2);
+            border-radius: 0 6px 6px 0;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .article-content blockquote p {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-content code {
+            font-family: var(--font-mono);
+            font-size: 0.88em;
+            background: var(--code-bg);
+            padding: 0.15em 0.4em;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        .article-content pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            line-height: 1.55;
+        }
+
+        .article-content pre code {
+            background: none;
+            padding: 0;
+            color: var(--text);
+            font-size: 0.85rem;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .article-content hr {
+            border: none;
+            height: 1px;
+            background: var(--border);
+            margin: 2.5rem 0;
+        }
+
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .article-content th,
+        .article-content td {
+            border: 1px solid var(--border);
+            padding: 0.6rem 1rem;
+            text-align: left;
+        }
+
+        .article-content th {
+            background: var(--surface2);
+            font-weight: 500;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+        }
+
+        .article-content tr:hover {
+            background: var(--surface2);
+        }
+
+        /* ── LOADING STATE ── */
+        .loading {
+            text-align: center;
+            padding: 6rem 0;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        .loading-spinner {
+            width: 28px;
+            height: 28px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── ERROR STATE ── */
+        .error {
+            text-align: center;
+            padding: 6rem 0;
+        }
+
+        .error h2 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .error p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            padding: 2.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-family: var(--font-mono);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ── FADE IN ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 0 1rem;
+            }
+
+            .nav-right {
+                gap: 1.25rem;
+            }
+
+            .post-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .article-content pre {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a class="nav-logo" href="index.html"><span>~/</span>bytelog</a>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="index.html#posts">Posts</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="https://github.com" target="_blank">GitHub ↗</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+                <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+
+        <!-- BACK LINK -->
+        <a class="back-link" href="index.html">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M13 8H3M7 4L3 8l4 4" />
+            </svg>
+            Back to all posts
+        </a>
+
+        <!-- POST HEADER -->
+        <div class="post-header" id="postHeader">
+            <div class="loading" id="loadingState">
+                <div class="loading-spinner"></div>
+                Loading post…
+            </div>
+        </div>
+
+        <!-- ARTICLE CONTENT -->
+        <div class="article-content" id="articleContent"></div>
+
+        <!-- ERROR STATE (hidden by default) -->
+        <div class="error" id="errorState" style="display: none;">
+            <h2>Post not found</h2>
+            <p>The post you're looking for doesn't exist or couldn't be loaded.</p>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>© 2025 bytelog — built with care, no frameworks harmed</p>
+            <div class="footer-links">
+                <a href="#">Twitter</a>
+                <a href="#">GitHub</a>
+                <a href="#">RSS</a>
+            </div>
+        </footer>
+
+    </div><!-- /wrapper -->
+
+    <script>
+        // ── Theme toggle ──
+        (function () {
+            const toggle = document.getElementById('themeToggle');
+            const stored = localStorage.getItem('bytelog-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = stored || (prefersDark ? 'dark' : 'light');
+
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('hljs-light').disabled = true;
+                document.getElementById('hljs-dark').disabled = false;
+            }
+
+            toggle.addEventListener('click', () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                const next = isDark ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('bytelog-theme', next);
+                document.getElementById('hljs-light').disabled = next === 'dark';
+                document.getElementById('hljs-dark').disabled = next === 'light';
+                // Re-highlight code blocks with new theme
+                document.querySelectorAll('pre code').forEach(el => {
+                    hljs.highlightElement(el);
+                });
+            });
+        })();
+
+        // ── Load and render post ──
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+            const headerEl = document.getElementById('postHeader');
+            const contentEl = document.getElementById('articleContent');
+            const loadingEl = document.getElementById('loadingState');
+            const errorEl = document.getElementById('errorState');
+
+            if (!slug) {
+                showError();
+                return;
+            }
+
+            // Fetch post manifest for metadata
+            Promise.all([
+                fetch('posts/index.json').then(r => r.json()),
+                fetch(`posts/${slug}.md`).then(r => {
+                    if (!r.ok) throw new Error('Not found');
+                    return r.text();
+                })
+            ])
+                .then(([manifest, markdown]) => {
+                    const post = manifest.find(p => p.slug === slug);
+                    if (!post) throw new Error('Not in manifest');
+
+                    // Set page title
+                    document.title = `${post.title} — bytelog`;
+
+                    // Render header
+                    const tagsHtml = post.tags
+                        .map(t => `<span class="tag">${t.charAt(0).toUpperCase() + t.slice(1)}</span>`)
+                        .join('');
+
+                    const dateStr = new Date(post.date).toLocaleDateString('en-GB', {
+                        day: '2-digit', month: 'short', year: 'numeric'
+                    });
+
+                    headerEl.innerHTML = `
+          <h1>${post.title}</h1>
+          <div class="post-meta">
+            <span class="post-date">${dateStr}</span>
+            ${tagsHtml}
+          </div>
+        `;
+
+                    // Configure marked (highlight option removed in marked v5+)
+                    marked.setOptions({
+                        gfm: true,
+                        breaks: false
+                    });
+
+                    // Render markdown (skip the first H1 since we already have the title)
+                    let rendered = marked.parse(markdown);
+                    // Remove the first <h1> from rendered content to avoid duplication
+                    rendered = rendered.replace(/^<h1[^>]*>.*?<\/h1>\s*/i, '');
+
+                    contentEl.innerHTML = rendered;
+
+                    // Highlight all code blocks manually
+                    contentEl.querySelectorAll('pre code').forEach(el => {
+                        hljs.highlightElement(el);
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                    showError();
+                });
+
+            function showError() {
+                loadingEl.style.display = 'none';
+                headerEl.style.display = 'none';
+                errorEl.style.display = 'block';
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
