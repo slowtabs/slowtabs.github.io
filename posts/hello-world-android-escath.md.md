@@ -9,7 +9,7 @@ title: Hello World - Andriod - Escath
 
 Starting off, I looked online for a way to view .ab files and found this tool on github:
 
-{%preview https://github.com/nelenkov/android-backup-extractor/releases/tag/latest %}
+https://github.com/nelenkov/android-backup-extractor/releases/tag/latest
 
 After running the tool on the file, I required a password to decrypt it.
 ![image](https://hackmd.io/_uploads/SJyicIhLbl.png)
