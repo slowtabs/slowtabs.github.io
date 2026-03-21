@@ -14,5 +14,13 @@
     "tags": ["android", "ctf"],
     "excerpt": "Extracting an Android backup, reversing the APK, and unlocking a SQLCipher database to retrieve the flag.",
     "featured": false
+  },
+  {
+    "slug": "verboten",
+    "title": "Verboten",
+    "date": "2026-03-21",
+    "tags": ["dfir-labs", "forensics", "ctf"],
+    "excerpt": "A DFIR challenge writeup covering USB artifacts, registry forensics, Slack evidence, AnyDesk traces, and persistence analysis.",
+    "featured": false
   }
 ]
