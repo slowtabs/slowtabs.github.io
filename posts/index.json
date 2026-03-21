@@ -1,11 +1,19 @@
 [
   {
+    "slug": "verboten",
+    "title": "Verboten",
+    "date": "2026-03-21",
+    "tags": ["dfir-labs", "forensics", "ctf"],
+    "excerpt": "A DFIR challenge writeup covering USB artifacts, registry forensics, Slack evidence, AnyDesk traces, and persistence analysis.",
+    "featured": true
+  },
+  {
     "slug": "2-layer-security",
     "title": "2 Layer Security",
     "date": "2026-03-14",
     "tags": ["dfir-labs"],
     "excerpt": "A forensic walkthrough of a two-layer encryption challenge involving PowerShell, AES-CBC, and GPG key recovery.",
-    "featured": true
+    "featured": false
   },
   {
     "slug": "hello-world-android-escath",
@@ -14,13 +22,6 @@
     "tags": ["android", "ctf"],
     "excerpt": "Extracting an Android backup, reversing the APK, and unlocking a SQLCipher database to retrieve the flag.",
     "featured": false
-  },
-  {
-    "slug": "verboten",
-    "title": "Verboten",
-    "date": "2026-03-21",
-    "tags": ["dfir-labs", "forensics", "ctf"],
-    "excerpt": "A DFIR challenge writeup covering USB artifacts, registry forensics, Slack evidence, AnyDesk traces, and persistence analysis.",
-    "featured": false
   }
+
 ]
