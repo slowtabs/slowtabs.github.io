@@ -11,10 +11,6 @@ title: Verboten
 
 
 
-
-Q9) What is the single use code that he copied into the clipboard and when did he copy it?
-Format: verboten{single_use_code:YYYY-MM-DD-HH-MM-SS}
-
 ---
 
 I started with opening the `verboten.ad1` file. On some googling of the file format, I found that it can be opened using FTK imager. Therefore I opened it in FTK imager and extracted the files into a folder.
@@ -134,3 +130,10 @@ I went into System32/config/SAM and opened it using RegistryExplorer. Under SAM/
 ![image](https://hackmd.io/_uploads/rJv2vcQOWx.png)
 
 Flag: verboten{Stuart:FutureKidsSchool:Howard}
+
+--
+
+couldnt get: 
+
+Q9) What is the single use code that he copied into the clipboard and when did he copy it?
+Format: verboten{single_use_code:YYYY-MM-DD-HH-MM-SS}
