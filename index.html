@@ -687,6 +687,7 @@
 
     // ── Load posts from manifest ──
     (function () {
+      const normalizeSlug = (value) => String(value || '').replace(/\.md$/i, '');
       const postList = document.getElementById('postList');
       const heroTitle = document.getElementById('heroTitle');
       const heroMeta = document.getElementById('heroMeta');
@@ -708,7 +709,7 @@
               ${featured.tags.map(t => `<span class="tag">${t.charAt(0).toUpperCase() + t.slice(1)}</span>`).join('')}
             `;
             heroExcerpt.textContent = featured.excerpt;
-            heroLink.href = `post.html?slug=${encodeURIComponent(featured.slug)}`;
+            heroLink.href = `post.html?slug=${encodeURIComponent(normalizeSlug(featured.slug))}`;
           }
 
           // Sort posts by date (newest first)
@@ -739,7 +740,7 @@
             li.dataset.tags = post.tags.join(',');
             li.style.animationDelay = `${i * 0.05}s`;
             const a = document.createElement('a');
-            a.href = `post.html?slug=${encodeURIComponent(post.slug)}`;
+            a.href = `post.html?slug=${encodeURIComponent(normalizeSlug(post.slug))}`;
             a.className = 'post-item-link';
             a.innerHTML = `
               <div class="post-tags">

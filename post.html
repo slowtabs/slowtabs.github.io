@@ -630,7 +630,8 @@
         // ── Load and render post ──
         (function () {
             const params = new URLSearchParams(window.location.search);
-            const slug = params.get('slug');
+            const normalizeSlug = (value) => String(value || '').replace(/\.md$/i, '');
+            const slug = normalizeSlug(params.get('slug'));
             const headerEl = document.getElementById('postHeader');
             const contentEl = document.getElementById('articleContent');
             const loadingEl = document.getElementById('loadingState');
@@ -650,7 +651,7 @@
                 })
             ])
                 .then(([manifest, markdown]) => {
-                    const post = manifest.find(p => p.slug === slug);
+                    const post = manifest.find(p => normalizeSlug(p.slug) === slug);
                     if (!post) throw new Error('Not in manifest');
 
                     // Set page title
